@@ -16,7 +16,7 @@ public class FormAddProductActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_form_add_product);
+        setContentView(R.layout.layout_form_add_product);
 
         etID = findViewById(R.id.txtID);
         etName = findViewById(R.id.txtName);

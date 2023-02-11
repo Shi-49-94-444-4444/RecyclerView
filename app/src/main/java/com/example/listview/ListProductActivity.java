@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class ListProductActivity extends AppCompatActivity {
     ListProduct listProduct;
     ProductAdapter  productAdapter;
     RecyclerView recyclerView;
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.layout_list_product);
 
         productAdapter  = new ProductAdapter(listProduct.getListProduct());
 
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Code xử lý khi nút "Add" được bấm
-                Intent intent = new Intent(MainActivity.this, FormAddProductActivity.class);
+                Intent intent = new Intent(ListProductActivity.this, FormAddProductActivity.class);
                 intent.putExtra("ListProduct", listProduct);
                 startActivity(intent);
             }
