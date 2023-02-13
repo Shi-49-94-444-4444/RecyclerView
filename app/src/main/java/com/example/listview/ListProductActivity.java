@@ -1,10 +1,12 @@
 package com.example.listview;
 
 import  androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -35,7 +37,7 @@ public class ListProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_list_product);
 
-        productAdapter  = new ProductAdapter(listProduct.getListProduct());
+        productAdapter  = new ProductAdapter(listProduct.getListProduct(), this);
 
         recyclerView = findViewById(R.id.listproduct);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -60,9 +62,11 @@ public class ListProductActivity extends AppCompatActivity {
     class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
         final ArrayList<Product> listProduct;
+        private Context context;
 
-        public ProductAdapter(ArrayList<Product> listProduct) {
+        public ProductAdapter(ArrayList<Product> listProduct, Context context) {
             this.listProduct = listProduct;
+            this.context = context;
         }
 
         @Override
@@ -88,6 +92,7 @@ public class ListProductActivity extends AppCompatActivity {
 
         class ProductViewHolder extends RecyclerView.ViewHolder {
             TextView textViewId, textViewName, textViewQuatity, textViewPrice, textViewMaker;
+            CardView card_view;
 
             ProductViewHolder(View itemView) {
                 super(itemView);
@@ -96,7 +101,24 @@ public class ListProductActivity extends AppCompatActivity {
                 textViewQuatity = itemView.findViewById(R.id.quatityproduct);
                 textViewPrice = itemView.findViewById(R.id.priceproduct);
                 textViewMaker = itemView.findViewById(R.id.makerproduct);
+
+                card_view = itemView.findViewById(R.id.card_view);
+
+                card_view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            Product product = listProduct.get(position);
+                            Intent intent = new Intent(context, ProductDetailActivity.class);
+                            intent.putExtra("product", product);
+                            context.startActivity(intent);
+                        }
+                    }
+                });
             }
+
+
         }
     }
 }
